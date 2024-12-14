@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Matching System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .matches {
+            margin-top: 20px;
+        }
+        .match {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .match img {
+            max-width: 100px;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+        .clear-btn {
+            background-color: #dc3545;
+            margin-left: 15px;
+        }
+        .clear-btn:hover {
+            background-color: #a71d2a;
+        }
+        .flash-message {
+            color: #d9534f;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Face Matching System</h1>
+        {% if message %}
+        <div class="flash-message">{{ message }}</div>
+        {% endif %}
+        
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="real_images">Upload Real Face Images (Folder):</label>
+                <input type="file" name="real_images" id="real_images" multiple required>
+            </div>
+            <div class="form-group">
+                <label for="sketch">Upload Sketch Image:</label>
+                <input type="file" name="sketch" id="sketch" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit">Start Matching</button>
+                <a href="/clear">
+                    <button type="button" class="clear-btn">Clear Database</button>
+                </a>
+            </div>
+        </form>
+
+        <div class="matches">
+            {% if matches %}
+                <h2>Top Matches:</h2>
+                <div>
+                    <h3>Sketch Image:</h3>
+                    <img src="{{ sketch_path }}" alt="Sketch" width="150">
+                </div>
+                {% for match in matches %}
+                    <div class="match">
+                        <img src="{{ match.image_path }}" alt="Match Image" width="150">
+                        <div>
+                            <p><strong>Name:</strong> {{ match.name }}</p>
+                            <p><strong>Similarity:</strong> {{ match.similarity }}%</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
