@@ -18,8 +18,5 @@ Use Flask for the web app to handle file uploads and display results.
 Error Handling:
 Validate file inputs and handle missing/corrupted files gracefully.
 
-Deployment:
-Run locally using Flask (http://127.0.0.1:5000) or deploy to cloud platforms like Heroku.
-
 Database Optimization:
 Ensure efficient storage and querying to handle larger datasets.
