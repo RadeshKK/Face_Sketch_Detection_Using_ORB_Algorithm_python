@@ -15,8 +15,4 @@ Identify and rank top N matches based on similarity scores.
 Web Interface:
 Use Flask for the web app to handle file uploads and display results.
 
-Error Handling:
-Validate file inputs and handle missing/corrupted files gracefully.
 
-Database Optimization:
-Ensure efficient storage and querying to handle larger datasets.
